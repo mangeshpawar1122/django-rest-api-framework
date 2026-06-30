@@ -6,45 +6,55 @@
 # from .serializers import StudentSerializers
 # # Create your views here.
 
-from rest_framework import mixins,generics
+# from rest_framework import mixins,generics
+# from .models import Student
+# from .serializers import StudentSerializers
+
+from rest_framework import viewsets
 from .models import Student
 from .serializers import StudentSerializers
-# CRUD operation using GenericAPIView and Mixins
-class StudentListCreateApi(
-  mixins.ListModelMixin,
-  mixins.CreateModelMixin,
-  generics.GenericAPIView,
-):
+
+# Full CRUD using Viewsets
+class StudentViewSets(viewsets.ModelViewSet):
   queryset = Student.objects.all()
   serializer_class = StudentSerializers
-  # read all data
-  def get(self,request,*args, **kwargs):
-    return self.list(request,*args, **kwargs)
-  # create a post Api
-  def post(self,request,*args, **kwargs):
-    return self.create(request,*args, **kwargs)
 
-class StudentRetrieveUpdateDeleteApi(
-  generics.GenericAPIView,
-  mixins.UpdateModelMixin,
-  mixins.DestroyModelMixin,
-  mixins.RetrieveModelMixin
-):
-  queryset = Student.objects.all()
-  serializer_class = StudentSerializers
-  lookup_field = 'pk'
+# # CRUD operation using GenericAPIView and Mixins
+# class StudentListCreateApi(
+#   mixins.ListModelMixin,
+#   mixins.CreateModelMixin,
+#   generics.GenericAPIView,
+# ):
+#   queryset = Student.objects.all()
+#   serializer_class = StudentSerializers
+#   # read all data
+#   def get(self,request,*args, **kwargs):
+#     return self.list(request,*args, **kwargs)
+#   # create a post Api
+#   def post(self,request,*args, **kwargs):
+#     return self.create(request,*args, **kwargs)
 
-  # single data get
-  def get(self,request,*args, **kwargs):
-    return self.retrieve(request,*args, **kwargs)
+# class StudentRetrieveUpdateDeleteApi(
+#   generics.GenericAPIView,
+#   mixins.UpdateModelMixin,
+#   mixins.DestroyModelMixin,
+#   mixins.RetrieveModelMixin
+# ):
+#   queryset = Student.objects.all()
+#   serializer_class = StudentSerializers
+#   lookup_field = 'pk'
+
+#   # single data get
+#   def get(self,request,*args, **kwargs):
+#     return self.retrieve(request,*args, **kwargs)
   
-  # update data using put api
-  def put(self,request,*args, **kwargs):
-    return self.update(request, *args, **kwargs)
+#   # update data using put api
+#   def put(self,request,*args, **kwargs):
+#     return self.update(request, *args, **kwargs)
   
-  # delete data usign delete
-  def delete(self,request,*args, **kwargs):
-    return self.destroy(request,*args, **kwargs)
+#   # delete data usign delete
+#   def delete(self,request,*args, **kwargs):
+#     return self.destroy(request,*args, **kwargs)
 
   
 
